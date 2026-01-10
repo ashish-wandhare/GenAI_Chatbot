@@ -217,8 +217,7 @@ else:
             empty_db = True
 
         if empty_db:
-            st.info("📌 First run: Creating embeddings from PDF...")
-
+            
             pdf_path = "data/raw/Python Programming.pdf"
             loader = PyPDFLoader(pdf_path)
             docs = loader.load()
@@ -232,8 +231,7 @@ else:
             vectordb.add_documents(chunks)
             vectordb.persist()
 
-            st.success("✅ Embeddings created successfully!")
-
+            
         retriever = vectordb.as_retriever(
             search_type="mmr",
             search_kwargs={"k": 6, "fetch_k": 20}
