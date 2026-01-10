@@ -16,7 +16,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.llms import HuggingFacePipeline
 
 from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 # =====================================================
@@ -193,36 +193,50 @@ else:
     # Initialize chat memory
     if "messages" not in st.session_state:
         st.session_state.messages = []
-
+    
+    #_______________________________________________
     # Load RAG backend (cached)
+    #_______________________________________________
     @st.cache_resource
     def load_rag_pipeline():
         embedding_model = HuggingFaceEmbeddings(
             model_name=config["embedding"]["model_name"]
         )
 
-        persist_dir = os.path.join("/tmp", "chroma_db")
+        # ✅ Local vs Cloud DB location
+        if os.environ.get("STREAMLIT_SERVER_HEADLESS") == "true":
+            persist_dir = os.path.join("/tmp", "chroma_db")
+        else:
+            persist_dir = config["vector_store"]["persist_directory"]
 
         vectordb = Chroma(
-        persist_directory=persist_dir,
-        embedding_function=embedding_model
+            persist_directory=persist_dir,
+            embedding_function=embedding_model
         )
 
-# ✅ Build DB if empty
-if vectordb._collection.count() == 0:
-    pdf_path = "data/raw/Python Programming.pdf"
+        # ✅ Create embeddings if DB is empty
+        try:
+            empty_db = vectordb._collection.count() == 0
+        except Exception:
+            empty_db = True
 
-    loader = PyPDFLoader(pdf_path)
-    docs = loader.load()
+        if empty_db:
+            st.info("📌 First run: Creating embeddings from PDF...")
 
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=800,
-        chunk_overlap=150
-    )
-    chunks = splitter.split_documents(docs)
+            pdf_path = "data/raw/Python Programming.pdf"
+            loader = PyPDFLoader(pdf_path)
+            docs = loader.load()
 
-    vectordb.add_documents(chunks)
-    vectordb.persist()
+            splitter = RecursiveCharacterTextSplitter(
+                chunk_size=800,
+                chunk_overlap=150
+            )
+            chunks = splitter.split_documents(docs)
+
+            vectordb.add_documents(chunks)
+            vectordb.persist()
+
+            st.success("✅ Embeddings created successfully!")
 
         retriever = vectordb.as_retriever(
             search_type="mmr",
@@ -265,7 +279,7 @@ Answer clearly and concisely:
                 "chat_history": lambda _: format_chat_history(
                     st.session_state.get("messages", [])
                 ),
-                "question": RunnablePassthrough()
+                "question": RunnablePassthrough(),
             }
             | prompt
             | llm
@@ -275,7 +289,7 @@ Answer clearly and concisely:
         return qa_chain
 
     qa_chain = load_rag_pipeline()
-
+    
     # Display chat history with UI
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
