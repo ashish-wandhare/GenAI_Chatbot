@@ -84,10 +84,6 @@ if page == "Document":
                 mime="application/pdf"
             )
 
-        st.markdown("### Preview")
-        with open(doc_path, "rb") as f:
-            st.pdf(f.read())
-
 # =====================================================
 # ABOUT PAGE
 # =====================================================
