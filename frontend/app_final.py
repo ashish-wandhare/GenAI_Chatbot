@@ -18,6 +18,8 @@ from langchain_community.llms import HuggingFacePipeline
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+from streamlit_pdf_viewer import pdf_viewer
+
 
 # =====================================================
 # Helper: format chat history (SHORT-TERM MEMORY)
@@ -83,6 +85,11 @@ if page == "Document":
                 file_name="Python Programming.pdf",
                 mime="application/pdf"
             )
+
+        st.markdown("### Preview")
+        pdf_viewer(doc_path)   # ✅ ADD THIS LINE
+    else:
+        st.error("PDF file not found!")
 
 # =====================================================
 # ABOUT PAGE
