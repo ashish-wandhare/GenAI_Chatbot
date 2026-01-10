@@ -6,3 +6,4 @@ sentence-transformers==2.6.1
 torch>=2.0
 transformers>=4.38
 pypdf
+streamlit-pdf-viewer
