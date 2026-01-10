@@ -15,6 +15,9 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_community.llms import HuggingFacePipeline
 
+from langchain_community.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
 
 # =====================================================
 # Helper: format chat history (SHORT-TERM MEMORY)
@@ -198,10 +201,28 @@ else:
             model_name=config["embedding"]["model_name"]
         )
 
-        vectordb = Chroma(
-            persist_directory = os.path.join("/tmp", "chroma_db"),
-            embedding_function=embedding_model
-        )
+        persist_dir = os.path.join("/tmp", "chroma_db")
+
+    vectordb = Chroma(
+    persist_directory=persist_dir,
+    embedding_function=embedding_model
+)
+
+# ✅ Build DB if empty
+if vectordb._collection.count() == 0:
+    pdf_path = "data/raw/Python Programming.pdf"
+
+    loader = PyPDFLoader(pdf_path)
+    docs = loader.load()
+
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=800,
+        chunk_overlap=150
+    )
+    chunks = splitter.split_documents(docs)
+
+    vectordb.add_documents(chunks)
+    vectordb.persist()
 
         retriever = vectordb.as_retriever(
             search_type="mmr",
