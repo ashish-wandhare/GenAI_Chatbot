@@ -199,7 +199,7 @@ else:
         )
 
         vectordb = Chroma(
-            persist_directory=persist_directory,
+            persist_directory = os.path.join("/tmp", "chroma_db"),
             embedding_function=embedding_model
         )
 
