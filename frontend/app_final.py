@@ -203,10 +203,10 @@ else:
 
         persist_dir = os.path.join("/tmp", "chroma_db")
 
-    vectordb = Chroma(
-    persist_directory=persist_dir,
-    embedding_function=embedding_model
-)
+        vectordb = Chroma(
+        persist_directory=persist_dir,
+        embedding_function=embedding_model
+        )
 
 # ✅ Build DB if empty
 if vectordb._collection.count() == 0:
