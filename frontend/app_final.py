@@ -199,7 +199,7 @@ else:
         )
 
         vectordb = Chroma(
-            persist_directory=config["vector_store"]["persist_directory"],
+            persist_directory=persist_directory,
             embedding_function=embedding_model
         )
 
