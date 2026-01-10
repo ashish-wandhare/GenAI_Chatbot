@@ -1,0 +1,30 @@
+project:
+  name: GenAI_Chatbot
+  environment: local
+
+paths:
+  raw_data: data/raw
+  processed_data: data/processed
+  vector_db: vectordb/chroma_db
+
+embedding:
+  model_name: sentence-transformers/all-MiniLM-L6-v2
+  chunk_size: 500
+  chunk_overlap: 100
+
+vector_store:
+  type: chroma
+  persist_directory: vectordb/chroma_db
+
+retriever:
+  top_k: 3
+
+llm:
+  model_name: google/flan-t5-small
+  temperature: 0.2
+  max_tokens: 256
+
+
+streamlit:
+  page_title: "GenAI Context-Aware Chatbot"
+  page_icon: "-"
