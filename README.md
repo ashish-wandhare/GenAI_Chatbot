@@ -1,11 +1,5 @@
 📘 GenAI Context-Aware Chatbot (RAG)
 
-A Retrieval-Augmented Generation (RAG) chatbot built using LangChain, HuggingFace models, Chroma vector database, and Streamlit.
-The chatbot answers questions only from a provided PDF (Python book), ensuring grounded and reliable responses.
-
-
-📘 GenAI Context-Aware Chatbot (RAG)
-
 A Retrieval-Augmented Generation (RAG) chatbot built using LangChain, HuggingFace models, Chroma vector database, and Streamlit. 
 The chatbot answers questions only from a provided PDF (Python book), ensuring grounded and reliable responses.
 
