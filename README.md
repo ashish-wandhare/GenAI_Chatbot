@@ -75,5 +75,6 @@ Enable cloud-based LLMs (optional)
 👤 Author
 
 Ashish W.
+wandhare@gmail.com
 Internship Project
 Domain: Generative AI, LLM, RAG Systems
