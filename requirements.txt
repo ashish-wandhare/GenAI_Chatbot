@@ -7,3 +7,4 @@ torch>=2.0
 transformers>=4.38
 pypdf
 streamlit-pdf-viewer
+protobuf==3.20.3
