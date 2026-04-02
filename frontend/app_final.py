@@ -20,10 +20,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from streamlit_pdf_viewer import pdf_viewer
 
-
-# =====================================================
 # Helper: format chat history (SHORT-TERM MEMORY)
-# =====================================================
 def format_chat_history(messages, max_turns=5):
     recent = messages[-max_turns * 2:]
     history = []
@@ -33,33 +30,24 @@ def format_chat_history(messages, max_turns=5):
     return "\n".join(history)
 
 
-# =====================================================
 # Helper: format retrieved documents
-# =====================================================
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
 
-# =====================================================
 # Load configuration
-# =====================================================
 with open("config/config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
 
-# =====================================================
 # Streamlit page config
-# =====================================================
 st.set_page_config(
     page_title="GenAI Chatbot",
     page_icon="🤖",
     layout="wide"
 )
 
-
-# =====================================================
 # Sidebar Navigation
-# =====================================================
 st.sidebar.title(" More Links")
 
 page = st.sidebar.radio(
@@ -68,9 +56,7 @@ page = st.sidebar.radio(
 )
 
 
-# =====================================================
 # DOCUMENT PAGE
-# =====================================================
 if page == "Document":
     st.title("📄 Document Viewer")
     st.write("Here you can open the document used for your chatbot training.")
@@ -87,13 +73,11 @@ if page == "Document":
             )
 
         st.markdown("### Preview")
-        pdf_viewer(doc_path)   # ✅ ADD THIS LINE
+        pdf_viewer(doc_path)   
     else:
         st.error("PDF file not found!")
 
-# =====================================================
 # ABOUT PAGE
-# =====================================================
 elif page == "About":
     st.title("⬜ About This Project")
 
@@ -120,11 +104,9 @@ If the answer is not found in docs, it responds:
     st.write("- Book-based Q&A\n- Internal company documents chatbot\n- Notes assistant")
 
 
-# =====================================================
 # CHATBOT PAGE
-# =====================================================
 else:
-    # ✅ Sticky Heading
+    #  Sticky Heading
     st.markdown(
     """
     <style>
@@ -135,23 +117,23 @@ else:
 
     /* Give space for fixed header + fixed footer */
     .block-container {
-    padding-top: 181px !important;  /* ✅ enough space so 1st message won't hide */
+    padding-top: 181px !important; 
     padding-bottom: 71px !important;
     }
 
-    /* ✅ FIXED Header (will NOT scroll) */
+    /*  FIXED Header (will NOT scroll) */
     .fixed-header {
     position: fixed;
-    top: 3.2rem;               /* ✅ Push header down */
+    top: 3.2rem;               
     left: var(--sidebar-width);
     width: calc(100% - var(--sidebar-width));
     z-index: 9999;
     background: white;
-    padding: 14px 20px 10px 20px;   /* ✅ more padding */
+    padding: 14px 20px 10px 20px;   
     border-bottom: 1px solid #e6e6e6;
     }
 
-    /* ✅ If sidebar collapsed (mobile), header takes full width */
+    /*  If sidebar collapsed (mobile), header takes full width */
     @media (max-width: 768px) {
         .fixed-header {
             left: 0;
@@ -159,7 +141,7 @@ else:
         }
     }
 
-    /* ✅ Chat bubbles */
+    /*  Chat bubbles */
     .answer-box {
         background: #f6fff8;
         border: 1px solid #b7eb8f;
@@ -206,7 +188,7 @@ else:
             model_name=config["embedding"]["model_name"]
         )
 
-        # ✅ Local vs Cloud DB location
+        #  Local vs Cloud DB location
         if os.environ.get("STREAMLIT_SERVER_HEADLESS") == "true":
             persist_dir = os.path.join("/tmp", "chroma_db")
         else:
@@ -217,7 +199,7 @@ else:
             embedding_function=embedding_model
         )
 
-        # ✅ Create embeddings if DB is empty
+        #  Create embeddings if DB is empty
         try:
             empty_db = vectordb._collection.count() == 0
         except Exception:
