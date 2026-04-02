@@ -355,7 +355,7 @@ st.markdown(
     </style>
 
     <div class="footer">
-        Developed by: <b>Ashish W.</b> • ChatGTP can make mistakes. Check important info
+        Developed by: <b>Ashish W.</b> GenAI Chatbot can make mistakes. Check important info
     </div>
     """,
     unsafe_allow_html=True
