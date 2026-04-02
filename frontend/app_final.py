@@ -184,7 +184,7 @@ else:
     </style>
 
     <div class="fixed-header">
-        <h1 style="margin:0;color:gray;">🤖 ChatGTP</h1>
+        <h1 style="margin:0;color:gray;">🤖 GenAI Chatbot</h1>
         <h4 style="margin:0;color:gray;">GenAI Context-Aware Chatbot</h4>
     </div>
     """,
