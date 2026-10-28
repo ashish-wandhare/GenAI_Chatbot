@@ -2,23 +2,6 @@
 
 A Retrieval-Augmented Generation (RAG) chatbot that answers questions using information retrieved from a provided PDF document. The project combines document embeddings, a Chroma vector database, a HuggingFace language model, and a Streamlit interface.
 
-## 📸 Application Screenshots
-
-<p align="center">
-  <img width="1916" height="947" alt="Chatbot Main Interface" src="https://github.com/user-attachments/assets/3064eaf3-28be-41e7-bb03-032f0e187dbd" />
-</p>
-
-<p align="center">
-  <img width="1917" height="942" alt="Document Interface" src="https://github.com/user-attachments/assets/7bbf4ea4-164b-438f-ace9-5bcc8d3c1f12" />
-</p>
-
-<p align="center">
-  <img width="1912" height="947" alt="About Interface" src="https://github.com/user-attachments/assets/743ef1ee-65e5-466d-99bb-2972255fa424" />
-</p>
-
-<p align="center">
-  <img width="1440" height="756" alt="GenAI Chatbot Snapshot" src="https://github.com/user-attachments/assets/e93b1af4-9c01-4aeb-b703-6e08ddd9d52f" />
-</p>
 
 ## 📌 Overview
 
@@ -187,3 +170,21 @@ The application is also deployed on the following platforms:
 
 
 [GitHub Profile](https://github.com/ashish-wandhare)
+
+## 📸 Application Screenshots
+
+<p align="center">
+  <img width="1916" height="947" alt="Chatbot Main Interface" src="https://github.com/user-attachments/assets/3064eaf3-28be-41e7-bb03-032f0e187dbd" />
+</p>
+
+<p align="center">
+  <img width="1917" height="942" alt="Document Interface" src="https://github.com/user-attachments/assets/7bbf4ea4-164b-438f-ace9-5bcc8d3c1f12" />
+</p>
+
+<p align="center">
+  <img width="1912" height="947" alt="About Interface" src="https://github.com/user-attachments/assets/743ef1ee-65e5-466d-99bb-2972255fa424" />
+</p>
+
+<p align="center">
+  <img width="1440" height="756" alt="GenAI Chatbot Snapshot" src="https://github.com/user-attachments/assets/e93b1af4-9c01-4aeb-b703-6e08ddd9d52f" />
+</p>
